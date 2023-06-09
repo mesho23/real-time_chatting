@@ -9,7 +9,7 @@ async function  encrypt(plainpass){
            resolve(hash)
             });
      }) 
-        console.log(hashedpass+ " ff")
+       
          return hashedpass;
         
  }
