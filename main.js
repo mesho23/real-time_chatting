@@ -105,13 +105,13 @@ const mp = new Map();
 io.on('connection', (socket) => {
   let user_email;
   const joined_chan=[];
- 
+  console.log(socket.id);
 var chan;
  var in_chan;
  var fixedUserID;
  var receiver_id;
  var receiver_name;
- 
+ console.log(in_chan);
  let code;
 
 
@@ -124,18 +124,18 @@ socket.on("getSession",(name,pass)=>{
     user = JSON.parse(JSON.stringify(result));
     if(user[0]){ 
       hash = user[0].password;
-    
+      console.log(hash); 
   
       enc.comparePassword(pass,hash).then(async function(is_same){
-     
+        console.log(is_same)
         if(is_same){
           try {
-         
+            console.log(user[0].session);
            mp.set(user[0].session,socket.id);
-        
+           console.log(mp.keys(),mp.values());
            
            socket.emit("success",name);
-          
+            console.log(Object.keys(socket.rooms))
             socket.emit("setSession",socket.id,name);
         
           } catch (error) {
@@ -164,7 +164,7 @@ enc.encrypt(pass).then((hashedpass) => {
 
   //
   myquery = "select name from users where name = ? or email = ? ";
-
+  console.log(hashedpass)
   sqlobj = [username,email]
   myquery=mysql.format(myquery,sqlobj)
   con.query(myquery, function (err, result, fields) {
@@ -183,15 +183,15 @@ enc.encrypt(pass).then((hashedpass) => {
         
        enc.genid().then((id)=>{
        
-      
+        console.log(id+" newsessionid");
 
         myquery = "INSERT INTO users ( name, email, password,session) VALUES (?,?,?,?)";
         sqlobj = [username,email,hashedpass,socket.id]
         myquery=mysql.format(myquery,sqlobj)
         con.query(myquery, function (err, result, fields) {
           if(err)throw err;
-      
-        
+         // console.log(result)
+         // user = JSON.parse(JSON.stringify(result));
           console.log("user inserted")
           try {
            
@@ -223,14 +223,16 @@ enc.encrypt(pass).then((hashedpass) => {
 
 
     socket.on("send", (message,name,color) => { 
-     
+       console.log("on send and my socket id is:" +socket.id + "c")
+        console.log(message+" were recevied and user is : "+name+" id: "+socket.id);
+        console.log(in_chan+"send on")
        
         if(in_chan){
           joined_chan.forEach(element => {
-         
+            console.log(element + "is in ")
           });
-       
-         io.in(chan).emit("recevie",message,name,color);
+          console.log(chan+" in if statment in send")
+         io.in(chan).emit("recevie",message,name,color,()=>{console.log("callback or recive "); console.log(Object.keys(socket.rooms))});
          
             myquery = "INSERT INTO channelMsgs (channelID,MSG,name) VALUES (?,?,?)";
             sqlobj = [chan,message,name];
@@ -244,13 +246,27 @@ enc.encrypt(pass).then((hashedpass) => {
            
 
         }
-     
+        /*else if(receiver_id){
+          console.log(fixedUserID) 
+
+          io.to(receiver_id).emit("recevie",message,name);
+          //socket.emit("recevie",message,name);
+          myquery = "INSERT INTO usersDM (receiver_id,sender_id,MSG,sender_name,receiver_name) VALUES (?,?,?,?,?)";
+          sqlobj = [fixedUserID,socket.id,message,name,receiver_name];
+          myquery=mysql.format(myquery,sqlobj);
+           con.query(myquery,function (err, result, fields){
+            if(err){ throw err
+              socket.emit("error","cant register try clearning the local register F12")};
+            console.log("inserted into the table usersDM: "+ message);
+          });
+
+        }*/
         else{
         io.emit("recevie",message,name,color);
         messages.push({message,name}); 
     }
     
-   
+    console.log("\n we have "+messages.length+" stored")
    })
 
 
@@ -258,9 +274,9 @@ enc.encrypt(pass).then((hashedpass) => {
     joined_chan.forEach(element => {
       socket.leave(element);
     });
-  
+    console.log(Object.keys(socket.rooms));
     chan = channel;
-
+    console.log(chan);
     
 
     myquery = "select channelID from channels where channelID = ?";
@@ -275,7 +291,7 @@ enc.encrypt(pass).then((hashedpass) => {
             if(err) console.log("cant create new channel");
             socket.join(channel,()=>{ console.log("user joined channel " + chan);});
            
-          
+            console.log(socket.rooms);
             in_chan = true;
            })
         }
@@ -283,7 +299,7 @@ enc.encrypt(pass).then((hashedpass) => {
         else{
           await socket.join(channel,function(){ console.log("user joined channel " + chan);});
         
-         
+          console.log(socket.rooms);
           in_chan = true;
          
 
@@ -296,7 +312,8 @@ enc.encrypt(pass).then((hashedpass) => {
            
 
             channel_messages.map((obj)=>{
-           
+             //console.log("getting one message to user : " + obj.name+" : "+ obj.MSG);
+            //console.log(socket.id);
              socket.emit("recevie",obj.MSG,obj.name);
             })
             
@@ -314,7 +331,7 @@ enc.encrypt(pass).then((hashedpass) => {
   
    
    socket.on("page_load",function(){
-  
+    console.log("page load happend");
     messages.forEach(obj => {
     
       console.table("getting one message " + obj.name+ obj.message);
@@ -325,7 +342,7 @@ enc.encrypt(pass).then((hashedpass) => {
 
    socket.on('disconnect', function () {
    userkey = getKey(mp,socket.id);
-  
+   console.log(userkey)
    if(userkey) mp.delete(userkey);
    
    for (let [key, value] of mp.entries()) {
@@ -341,7 +358,7 @@ enc.encrypt(pass).then((hashedpass) => {
 
 socket.on("upload",async(file,name,color,callback)=>{
 
-  
+  console.log(file); // <Buffer 25 50 44 ...>
 
   filetype = await verifyFileExtension(file);
 
@@ -397,7 +414,7 @@ socket.on("upload",async(file,name,color,callback)=>{
    
  })
  socket.on("verifyOTP",(usercode)=>{
-  
+  console.log(usercode+" "+code)
   if(usercode == code && !!code ){
     socket.emit("new_pass")
   }
@@ -414,7 +431,8 @@ socket.on("upload",async(file,name,color,callback)=>{
       con.query(myquery, function (err, result, fields) {
         if(err)throw err;
         socket.emit("password_changed")
- 
+       // console.log(result)
+       // user = JSON.parse(JSON.stringify(result));
        
         
          
