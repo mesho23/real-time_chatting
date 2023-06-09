@@ -246,21 +246,7 @@ enc.encrypt(pass).then((hashedpass) => {
            
 
         }
-        /*else if(receiver_id){
-          console.log(fixedUserID) 
-
-          io.to(receiver_id).emit("recevie",message,name);
-          //socket.emit("recevie",message,name);
-          myquery = "INSERT INTO usersDM (receiver_id,sender_id,MSG,sender_name,receiver_name) VALUES (?,?,?,?,?)";
-          sqlobj = [fixedUserID,socket.id,message,name,receiver_name];
-          myquery=mysql.format(myquery,sqlobj);
-           con.query(myquery,function (err, result, fields){
-            if(err){ throw err
-              socket.emit("error","cant register try clearning the local register F12")};
-            console.log("inserted into the table usersDM: "+ message);
-          });
-
-        }*/
+       
         else{
         io.emit("recevie",message,name,color);
         messages.push({message,name}); 
