@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+      type="text/javascript"
+      src="https://code.jquery.com/jquery-latest.min.js"
+    ></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+
+   
+
+    <title>web chat</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="login">
+       
+        <div id="loginArea">  <button id="login" >login</button>
+          <button id="register" >register</button> </div>
+          
+      
+      </div>
+      
+      <div class="chatcon">
+      
+      
+        <div id="chatBox"></div>
+
+        <div class="text_controls">
+
+        
+          <span id="message" contenteditable></span>
+          
+          
+          <button
+            class="messageBtn" id="sendBtn"
+          >
+            <image src ="./icons/send.svg " ></image>
+          </button>
+          <button   class="messageBtn" id="filebtn">
+          <input id="file" type="file" onchange="sendfile(this.files)" />
+          
+          <label for="file"> <image id="send_fileIMG" src = "./icons/send_file.svg" ></image>  </label>
+        </button>
+        
+        
+      </div>
+     
+      </div>
+    
+      <div class="join">
+     
+        <input id="channel" name="channel" type="text" placeholder="Join a room" /><button id="joinBtn">
+          join
+        </button>
+        <button id="AboutUs" >About us</button>
+    </div>
+     
+   
+     
+      <div id="login-card-con">
+      <div class="login-card" id="login-card" >
+        <div class="card-header">
+          <div class="log">Login</div>
+        </div>
+       
+          <div class="form-group">
+            <label for="username">Username:</label>
+            <input required="" name="username" id="username" type="text" required>
+          </div>
+          <div class="form-group" id="emailcon" style="display: none;">
+            <label for="email">Email:</label>
+            <input required="" name="email" id="email" type="email" required> 
+          </div>
+          <div class="form-group">
+            <label for="password">Password:</label>
+            <input required="" name="password" id="pass" type="password"  pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$" required>
+          </div> <div class="form-group" >                                         
+            <label id="forgetPassword" style="display: none;">forget Password?</label>
+            
+          </div>
+          <p class="error"></p>
+          <div class="form-group">
+            <button id="userBtn" class="userbtn">Login</button>
+            <button class="loading userbtn" style="display: none;"><div class="spinner" class="spinner center">
+              <div class="spinner-blade"></div>
+              <div class="spinner-blade"></div>
+              <div class="spinner-blade"></div>
+              <div class="spinner-blade"></div>
+              <div class="spinner-blade"></div>
+              <div class="spinner-blade"></div>
+              <div class="spinner-blade"></div>
+              <div class="spinner-blade"></div>
+              <div class="spinner-blade"></div>
+              <div class="spinner-blade"></div>
+              <div class="spinner-blade"></div>
+              <div class="spinner-blade"></div>
+          </div></button>          
+            
+            
+      
+          </div>
+      
+      </div></div>
+      
+      
+      <div id="forgetpass-card-con" style="display: none;">
+        <div class="login-card" >
+          <div class="card-header">
+            <div class="log">Password reset</div>
+          </div>
+
+          <div class="form-group" id="forget-pass-group" >
+           
+            <input required="" placeholder="Email" name="email-forget-pass" id="email-forget-pass" type="email" required> 
+          </div>
+            
+          <div class="form-group" id="OTP-group" style="display: none;">
+            
+            <input required="" name="otp" id="otp" type="text" placeholder="OTP"  required>
+            
+          </div> 
+
+          <div class="form-group" id="new_pass" style="display: none;">
+           
+            <input required="" name="password" id="newpassinput" placeholder="New Password" type="password"  pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$" required>
+           
+            <input required="" name="password" id="passcheck" type="password" placeholder="Re-type New Password" pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$" required>
+          </div> 
+          
+          <p class="error"></p>
+            <div class="form-group">
+              <button id="newpassBtn" class="userbtn" style="display: none;">Submit New Password</button>
+              <button id="OTPBtn" class="userbtn" style="display: none;">Submit OTP</button>
+              <button id="Pass-resetBtn" class="userbtn">Reset Password</button>
+              <button class="loading" class="userbtn" style="display: none;"><div class="spinner" class="spinner center">
+                <div class="spinner-blade"></div>
+                <div class="spinner-blade"></div>
+                <div class="spinner-blade"></div>
+                <div class="spinner-blade"></div>
+                <div class="spinner-blade"></div>
+                <div class="spinner-blade"></div>
+                <div class="spinner-blade"></div>
+                <div class="spinner-blade"></div>
+                <div class="spinner-blade"></div>
+                <div class="spinner-blade"></div>
+                <div class="spinner-blade"></div>
+                <div class="spinner-blade"></div>
+            </div></button>
+              
+              
+        
+            </div>
+        
+        </div>
+        
+    </div>
+   
+
+<div id="aboutcon">  <div class="card-client">
+  <div class="user-picture">
+      <svg viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg">
+          <path d="M224 256c70.7 0 128-57.31 128-128s-57.3-128-128-128C153.3 0 96 57.31 96 128S153.3 256 224 256zM274.7 304H173.3C77.61 304 0 381.6 0 477.3c0 19.14 15.52 34.67 34.66 34.67h378.7C432.5 512 448 496.5 448 477.3C448 381.6 370.4 304 274.7 304z"></path>
+      </svg>
+  </div>
+  <p class="name-client"> Meshari Alkhamisi 
+      <span>Website Developer/UI design
+      </span>
+  </p>
+  <div class="social-media">
+      <a href="https://twitter.com/SecWebity?t=-z7b_WQihZ6jQJ9_SP0RjQ&s=09">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+              <path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"></path>
+          </svg>
+          <span class="tooltip-social">Twitter</span>
+      </a>
+      <a href="https://github.com/mesho23/">
+        <svg viewBox="0 0 16 16" class="bi bi-github" fill="currentColor" height="16" width="16" xmlns="http://www.w3.org/2000/svg">
+          <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path>
+          </svg>
+          <span class="tooltip-social">Github</span>
+      </a>
+      
+      <a href="https://www.linkedin.com/in/meshari-alkhamisi-06788a21b/">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+              <path d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z"></path>
+          </svg>
+          <span class="tooltip-social">LinkedIn</span>
+      </a>
+  </div>
+</div>
+
+
+<div class="card-client">
+  <div class="user-picture">
+      <svg viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg">
+          <path d="M224 256c70.7 0 128-57.31 128-128s-57.3-128-128-128C153.3 0 96 57.31 96 128S153.3 256 224 256zM274.7 304H173.3C77.61 304 0 381.6 0 477.3c0 19.14 15.52 34.67 34.66 34.67h378.7C432.5 512 448 496.5 448 477.3C448 381.6 370.4 304 274.7 304z"></path>
+      </svg>
+  </div>
+  <p class="name-client"> Khalid Alkhamisi 
+      <span>UI design
+      </span>
+  </p>
+  <div class="social-media">
+    
+      
+    
+      <a href="https://www.linkedin.com/in/khalidmalkhamisi/">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+              <path d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z"></path>
+          </svg>
+          <span class="tooltip-social">LinkedIn</span>
+      </a>
+  </div>
+</div>
+</div>
+    <script src="https://cdn.socket.io/socket.io-3.0.1.min.js"></script>
+
+    <script src="/script.js"></script>
+    <script src="/layout.js"></script>
+  </body>
+</html>

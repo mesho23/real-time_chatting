@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript" src="web%20chat_files/jquery-latest.min.js"></script>
+    <script src="web%20chat_files/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="web%20chat_files/style.css">
+
+    <title>web chat</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="join">
+     
+          <input id="channel" name="channel" type="text"><button id="joinBtn">
+            join
+          </button>
+       
+      </div>
+      <div class="chatcon">
+        <div id="chatBox"></div>
+
+        <div class="text_controls">
+
+        
+          <span id="message" style="height: 380px; overflow-y: scroll;" contenteditable="">overflowY
+ overflowY overflowY overflowY overflowY overflowY overflowY overflowY 
+overflowY overflowY overflowY overflowY overflowY overflowY overflowY 
+overflowY overflowY overflowY overflowY overflowY overflowY overflowY 
+overflowY overflowY overflowY overflowY overflowY overflowY overflowY 
+overflowY overflowY overflowY overflowY overflowY overflowY overflowY 
+overflowY overflowY overflowY overflowY overflowY overflowY overflowY 
+overflowY overflowY overflowY overflowY overflowY overflowY overflowY 
+overflowY overflowY overflowY overflowY overflowY overflowY overflowY 
+overflowY overflowY overflowY overflowY overflowY overflowY overflowY 
+overflowY overflowY overflowY overflowY overflowY overflowY overflowY 
+overflowY overflowY overflowY overflowY overflowY overflowY v</span>
+          
+          
+          <button class="messageBtn" id="sendBtn">
+            <img src="web%20chat_files/send.svg">
+          </button>
+          <button class="messageBtn" id="filebtn">
+          <input id="file" type="file" onchange="sendfile(this.files)">
+          
+          <label for="file"> <img id="send_fileIMG" src="web%20chat_files/send_file.svg">  </label>
+        </button>
+        
+        
+      </div>
+      </div>
+      <div class="ad">ads</div>
+      <div class="ad2">ads</div>
+      <div class="login">
+        <div>  <button id="login">login</button>
+          <button id="register">register</button> </div>
+          
+      
+      </div>
+      <div id="login-card-con">
+      <div class="login-card">
+        <div class="card-header">
+          <div class="log">Login</div>
+        </div>
+       
+          <div class="form-group">
+            <label for="username">Username:</label>
+            <input required="" name="username" id="username" type="text">
+          </div>
+          <div class="form-group" id="emailcon" style="display: none;">
+            <label for="email">Email:</label>
+            <input required="" name="email" id="email" type="email"> 
+          </div>
+          <div class="form-group">
+            <label for="password">Password:</label>
+            <input required="" name="password" id="pass" type="password">
+          </div>
+          <div class="form-group">
+            <button id="userBtn">Login</button>
+      
+          </div>
+      
+      </div></div>
+      
+      
+      
+    </div>
+
+    <script src="web%20chat_files/socket.io-3.0.1.min.js"></script>
+
+    <script src="web%20chat_files/script.js"></script>
+    <script src="web%20chat_files/layout.js"></script>
+  
+
+</body></html>
