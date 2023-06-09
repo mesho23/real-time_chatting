@@ -6,7 +6,7 @@ const { gen } = require('n-digit-token');
 
 
 function sendauthcode(email){
-  console.log(email)
+
 
     return new Promise((resolve,reject) => {
         let code = gen(6);
