@@ -3,4 +3,4 @@ a real-time chatting web based application implemented using node js and socket 
 
 
 
-note you need to configure the necessary MySQL and Gmail account also you need to install the needed modules ex. npm install express
+note you need to configure the necessary MySQL and Gmail account also you need to install the needed modules ex. npm install 
