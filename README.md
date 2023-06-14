@@ -8,7 +8,7 @@ a real-time chatting web based application implemented using node js and socket 
 
 very simple steps, open your terminal and type:
 
-`git clone https://github.com/mesho23/real-time_chattingt`
+`git clone https://github.com/mesho23/real-time_chatting`
 
 `cd real-time_chatting/`
 
