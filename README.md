@@ -24,10 +24,10 @@ set up a Gmail account in mail.js (note you need applaction password if you are 
 
 and now you can use it by going to your browser and accessing localhost:3000  
 
-if you face an error in npm i or node app.js, this means you don’t have them installed.  <br>
+if you face an error in npm i or node app.js, this means you don’t have them installed.  
 
   
-    
+<br>    
 
 **for any questions, you can contact me at [SecWebity](https://twitter.com/SecWebity) on Twitter.**
 
