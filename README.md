@@ -14,7 +14,7 @@ very simple steps, open your terminal and type:
 
 `npm i`
 
-import MySQL file(sql_congiguration.zip) and configure main.js file from line **27-32** to match your mysql user and DB 
+import MySQL file(sql_configuration.zip) and configure main.js file from line **27-32** to match your mysql user and DB 
 
 set up a Gmail account in mail.js (note you need applaction password if you are using 2 step authentication)
  
