@@ -220,7 +220,7 @@ socket.on("sendself", (message) => {
 });
 function displayMeassage(arg) {
   if (displayName) {
-    $("#chatBox").append("<p>" + displayName + ": " + arg + "</p>");
+    $("#chatBox").append(DOMPurify.sanitize("<p>" + displayName + ": " + arg + "</p>"));
   } else {
     $("#chatBox").append("<p>" + socket.id + ": " + arg + "</p>");
   }
