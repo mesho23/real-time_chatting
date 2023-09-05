@@ -222,7 +222,7 @@ function displayMeassage(arg) {
   if (displayName) {
     $("#chatBox").append(DOMPurify.sanitize("<p>" + displayName + ": " + arg + "</p>"));
   } else {
-    $("#chatBox").append("<p>" + socket.id + ": " + arg + "</p>");
+    $("#chatBox").append(DOMPurify.sanitize("<p>" + socket.id + ": " + arg + "</p>"));
   }
 }
 
