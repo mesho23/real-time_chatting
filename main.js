@@ -71,8 +71,6 @@ app.use(function(req, res, next) {
 
 
 
-
-
 // routing
 app.get("/",(req,res) => {
  
@@ -83,10 +81,37 @@ app.get("/",(req,res) => {
 
 app.get("/test",(req,res)=>{
 
+  setTimeout(() => {
+    res.send("Hello World!");
+  }, 1000);
 
-  
   res.end();
-})
+}, function(req, res, next) {
+  setTimeout(() => {
+    next();
+  }, 5000);
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -515,10 +540,7 @@ socket.on("upload",async(file,name,color,callback)=>{
 }
 
 
-
-
   
-
 
 //listen 
 
