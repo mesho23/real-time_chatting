@@ -1,108 +1,80 @@
-const fs = require("fs")
+const fs = require("fs");
 const options = {
-  key: fs.readFileSync('./sslcert/yourKey.pem'),
-  cert: fs.readFileSync('./sslcert/yourCert.pem')
-}
+  key: fs.readFileSync("./sslcert/yourKey.pem"),
+  cert: fs.readFileSync("./sslcert/yourCert.pem")
+};
 const http= require("http");
-const https= require("https")
-const enc = require('./bcrypt');
+const https = require("https");
+const enc = require("./bcrypt");
 
-const express = require('express');
-const path = require('path');
+const express = require("express");
+const path = require("path");
 const app = express();
-const mail = require('./mail');
+const mail = require("./mail");
 
 const port = 3000;
 
-const server = https.createServer(options,app).listen(port,()=>{
-
+const server = https.createServer(options, app).listen(port, () => {
   console.log("listeing on port: "+port);
-})
-
-var mysql = require('mysql');
-
-
-
-
-var con = mysql.createPool({
-  connectionLimit : 100,
-    host: "localhost",
-    user: "yourUser",           
-    password: "yourPassword",
-    database: "YourDB" ,
-    debug:false 
-  });
- 
-  
-
-
-  var user;
-  
-  
-
-
-
-  
-const io = require("socket.io")(server,{
-    cors: {
-        origin: ["http://localhost:3000"]
-    },
-    maxHttpBufferSize: 1e8
 });
 
+var mysql = require("mysql");
 
+var con = mysql.createPool({
+  connectionLimit: 100,
+  host: "localhost",
+  user: "yourUser",
+  password: "yourPassword",
+  database: "YourDB",
+  debug: false
+});
 
+var user;
+
+const io = require("socket.io")(server, {
+  cors: {
+    origin: ["http://localhost:3000"],
+    methods: ["GET", "POST"],
+    allowedHeaders: ["my-custom-header"],
+    credentials: true
+  },
+  maxHttpBufferSize: 1e8
+});
 
 //midleware
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, "public")));
 
-app.set("views",path.join(__dirname,"views"));
-app.set("view engine","ejs");
+app.set("views", path.join(__dirname, "views"));
+app.set("view engine", "ejs");
 
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({
+  extended: true
+}));
 app.use(express.json());
 
-app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    next();
-  });
-  
-
-
-
-
+app.use(function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "http://localhost:3000");
+  res.header("Access-Control-Allow-Methods", "GET, POST");
+  res.header("Access-Control-Allow-Headers", "my-custom-header");
+  res.header("Access-Control-Allow-Credentials", true);
+  next();
+});
 
 // routing
-app.get("/",(req,res) => {
- 
+app.get("/", (req, res) => {
   res.render("index");
-})
+});
 
-
-
-app.get("/test",(req,res)=>{
-
-
-  
+app.get("/test", (req, res) => {
   res.end();
-})
-
-
-
-
-
-
-
-
-
+});
 
 // socket.io 
 const messages=[];
 
 const messages_channel=[];
 const mp = new Map();
-io.on('connection', (socket) => {
+io.on("connection", (socket) => {
   let user_email;
   const joined_chan=[];
   console.log(socket.id);
@@ -434,35 +406,27 @@ socket.on("upload",async(file,name,color,callback)=>{
  setInterval(() => {
   code = ""
  }, 90000);
-  
-  });
+});
 
-  function getKey(map, input) {
-    for (let [key, value] of map.entries()) {
+function getKey(map, input) {
+  for (let [key, value] of map.entries()) {
        if (value === input) {
          return key;
        }
     }
-    
-    
-  }
-  
-  function getvalue(map, input) {
-    for (let [key, value] of map.entries()) {
+}
+
+function getvalue(map, input) {
+  for (let [key, value] of map.entries()) {
        if (key === input) {
          return value;
        }
     }
-    
-    
-  }
+}
 
-
-
-
-  // Define a function that takes in a hexadecimal string representation of the file and returns the corresponding file extension
-  function verifyFileExtension(arrayBuffer) {
-    // An object that maps file extensions to their magic bytes
+// Define a function that takes in a hexadecimal string representation of the file and returns the corresponding file extension
+function verifyFileExtension(arrayBuffer) {
+  // An object that maps file extensions to their magic bytes
     let magicNumbers = {
         jpeg: [0xff, 0xd8, 0xff, 0xe0],
         png: [0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a], 
@@ -513,12 +477,6 @@ socket.on("upload",async(file,name,color,callback)=>{
     // If no match is found, return null
     return null;
 }
-
-
-
-
-  
-
 
 //listen 
 
