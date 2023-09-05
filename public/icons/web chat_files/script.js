@@ -158,7 +158,7 @@ function displayMeassage(arg) {
         $("#chatBox").append(DOMPurify.sanitize("<p>"+displayName+": "+arg+"</p>"));
     } 
     else{
-        $("#chatBox").append("<p>"+socket.id+": "+arg+"</p>");
+        $("#chatBox").append(DOMPurify.sanitize("<p>"+socket.id+": "+arg+"</p>"));
     }
    }
 
